@@ -9,7 +9,10 @@ SPECIAL FX: Greet the user.
 #include <iostream>
 using namespace std; int main() {
  //SFX: Greet user
- cout << "Hello, user" << endl;
+ //strings hold words
+ string first_name = "Curtis";
+
+ cout << "Hello," << first_name << endl;
 
 // output
 return 0; // no errors
