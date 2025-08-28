@@ -10,7 +10,7 @@ using namespace std;
 int main() {
  string bestmovie = "Avengers";
  string releasedate = "May 4, 2012";
- int ticketssold = 27000000;
+ int ticketssold = 3;
  double priceperticket = 8.00; 
  double approximategross = priceperticket * ticketssold;   
 
