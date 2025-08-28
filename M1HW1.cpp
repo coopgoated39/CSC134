@@ -16,4 +16,7 @@ int main() {
 
  cout << "One of my favorite movies from Marvel is " << bestmovie << endl; 
  cout << "It was released " << releasedate << endl;
- cout << "In the first weekend, The movie made approximately in the state of North Carolina $" << approximategross;}
+ cout << "In the first weekend, The movie made approximately $" << approximategross << " in the state of North Carolina" << endl;
+ cout << "one of my favorite lines was Tony Stark responding to Captain America when asked \"What are you outside of that suit? \" " << endl;
+ cout << "Stark said \" Genius Billionaire Playboy Philathropist \" Eveyone just looked like well its true"; 
+}
