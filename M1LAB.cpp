@@ -10,7 +10,8 @@ using namespace std;
 int main() {
  string name = "Curtis Cooper";
  int apples = 100;
- double priceperApple= .25; 
+ double priceperApple = .25; 
+ double totalprice = priceperApple * apples   
 
  cout << "Welcome to " << name;
  cout << "'s Orchard" << endl;
@@ -18,5 +19,7 @@ int main() {
  cout << " apples in stock" <<endl;
  cout << "Apples are currently $";
  cout << priceperApple <<endl;
+
+ cout << "If you want them all, that will be $" << totalprice << endl;
  
 }
