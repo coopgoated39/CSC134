@@ -14,5 +14,9 @@ int main() {
 
  cout << "Welcome to " << name;
  cout << "'s Orchard" << endl;
-
+ cout << "We have " << apples;
+ cout << " apples in stock" <<endl;
+ cout << "Apples are currently $";
+ cout << priceperApple <<endl;
+ 
 }
