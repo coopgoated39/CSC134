@@ -13,6 +13,6 @@ int main() {
  double priceperApple= .25; 
 
  cout << "Welcome to " << name;
- cout << " 's Orchard" << endl;
+ cout << "'s Orchard" << endl;
 
 }
