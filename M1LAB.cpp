@@ -11,7 +11,7 @@ int main() {
  string name = "Curtis Cooper";
  int apples = 100;
  double priceperApple = .25; 
- double totalprice = priceperApple * apples   
+ double totalprice = priceperApple * apples;   
 
  cout << "Welcome to " << name;
  cout << "'s Orchard" << endl;
