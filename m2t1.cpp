@@ -26,7 +26,7 @@ int main() {
 
     cout << "Each " << item << " cost " << priceperApple <<endl;
 
-    cout << " How many would like to buy?" <<endl;
+    cout << "How many would like to buy?" <<endl;
 
     cin >> amountpurchased; 
 
