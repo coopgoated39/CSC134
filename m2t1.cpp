@@ -35,7 +35,7 @@ int main() {
     cout << "Apples are currently $";
     cout << priceperApple <<endl;
 
-    cout << "you purchased" << amountpurchased << " " << item << endl;
+    cout << "you purchased " << amountpurchased << " " << item << endl;
 
     cout << "the total is  $" << totalprice << endl;
     return 0;
