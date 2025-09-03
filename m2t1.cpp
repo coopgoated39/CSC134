@@ -18,17 +18,19 @@ int main() {
 
     double priceperApple = .25;
     //varible for user input//
-    double totalprice = amountpurchased * priceperApple;   
+       
     //Greet user//
     cout << "Welcome to " << name;
 
     cout << "'s Orchard" << endl;
 
-    cout << "Each " << item << " cost" << priceperApple <<endl;
+    cout << "Each " << item << " cost " << priceperApple <<endl;
 
     cout << " How many would like to buy?" <<endl;
 
-    cin >> amountpurchased ; 
+    cin >> amountpurchased; 
+
+    double totalprice = amountpurchased * priceperApple;
 
     cout << "Apples are currently $";
     cout << priceperApple <<endl;
