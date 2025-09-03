@@ -13,8 +13,6 @@ int main() {
     string name = "Curtis Cooper";
 
     string item = "Apple";
-    
-    int apples = 100;
 
     int amountpurchased;
 
