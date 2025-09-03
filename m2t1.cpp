@@ -11,32 +11,27 @@ using namespace std;
 int main() {
     // Declare varibles//
     string name = "Curtis Cooper";
-
     string item = "Apple";
-
     int amountpurchased;
-
     double priceperApple = .25;
     //varible for user input//
        
     //Greet user//
     cout << "Welcome to " << name;
-
     cout << "'s Orchard" << endl;
-
-    cout << "Each " << item << " cost " << priceperApple <<endl;
+    cout << "Each " << item << " cost " << priceperApple <<endl; 
+    //get user input//
 
     cout << "How many would like to buy?" <<endl;
-
     cin >> amountpurchased; 
 
+    // Calculate the cost//
     double totalprice = amountpurchased * priceperApple;
 
+    //display results//
     cout << "Apples are currently $";
     cout << priceperApple <<endl;
-
     cout << "you purchased " << amountpurchased << " " << item << endl;
-
     cout << "the total is  $" << totalprice << endl;
     return 0;
 }
