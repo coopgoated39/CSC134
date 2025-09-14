@@ -16,13 +16,14 @@ int main()
     const double CHARGE_PER_CUBIC_FOOT = 0.5; 
     
     //Varibles
-    int length, //The crates length
-    width, //The crates width
-    height, //The crates heght 
-    volume, //The crates volume
-    cost,  //The cost to build the crates
-    charge, //The customer charge for the crate
-    profit, // the profit made on the crate
+    int length; //The crates length
+    int width; //The crates width
+    int height; //The crates heght 
+    int volume; //The crates volume
+    double cost = ;  //The cost to build the crates
+    double charge = ;
+     //The customer charge for the crate
+    double profit = ; // the profit made on the crate
 
     
     // Set the desired output formating for numbers.  
