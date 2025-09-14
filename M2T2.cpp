@@ -14,7 +14,7 @@ Receipt Calculator.
     
     //calculate//
     double amount_of_tax = price_before_tax * tax_amount;
-    double total_price = price_before_tax + tax_amount;
+    double total_price = price_before_tax + amount_of_tax;
     
     //display results//
     cout << tax_amount << " % Taxes on an item costing $" << price_before_tax << endl;
