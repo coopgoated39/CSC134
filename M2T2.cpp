@@ -18,7 +18,7 @@ Receipt Calculator.
     
     //display results//
     cout << tax_amount << " % Taxes on an item costing $" << price_before_tax << endl;
-    cout << "is $" << amount_of_tax << end1;
+    cout << "is $" << amount_of_tax << endl;
     cout << "The total price is $" << total_price << endl;
  }
 
