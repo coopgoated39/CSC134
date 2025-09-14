@@ -12,18 +12,17 @@ using namespace std;
 int main() 
 {
     // Constansts for cost and amount charged 
-    const double COST_PER_CUNIC_FOOT = 0.23;
+    const double COST_PER_CUBIC_FOOT = 0.23;
     const double CHARGE_PER_CUBIC_FOOT = 0.5; 
     
     //Varibles
-    int length; //The crates length
-    int width; //The crates width
-    int height; //The crates heght 
-    int volume; //The crates volume
-    double cost = ;  //The cost to build the crates
-    double charge = ;
-     //The customer charge for the crate
-    double profit = ; // the profit made on the crate
+    double length; //The crates length
+    double width; //The crates width
+    double height; //The crates heght 
+    double volume; //The crates volume
+    double cost;  //The cost to build the crates
+    double charge; //The customer charge for the crate
+    double profit; // the profit made on the crate
 
     
     // Set the desired output formating for numbers.  
@@ -39,10 +38,16 @@ int main()
     
     //Calculate the crates's volume, the cost to produce it
     // the charge to the customer, and the profit
+    volume = length * width * height;
+    cost = volume * COST_PER_CUBIC_FOOT;
+    charge = volume * CHARGE_PER_CUBIC_FOOT; 
+    profit = charge - cost;
+
+    //Display Calculated data
     cout << "The volume of the crate is "; 
     cout << Volume << " cubic feet. \n";
     cout << "Cost to build: $" << cost << endl;
     cout "Charge to cutomer: $" << charge << endl;
     cout << "Profit: $" << profit << endl;
-    return 0:
+    return 0;
 } 
