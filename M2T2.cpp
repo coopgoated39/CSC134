@@ -21,6 +21,7 @@ Receipt Calculator.
     cout << setprecision(2) << fixed;
     cout << tax_amount << " % Taxes on a meal costing $" << price_before_tax <<
     " is $" << amount_of_tax << endl;
+    cout <<  "_______________________________________________________________" << endl;
     cout << "The total price for the meal is $" << total_price << endl;
  }
 
