@@ -17,7 +17,7 @@ Receipt Calculator.
     double total_price = price_before_tax + amount_of_tax;
     
     //display results//
-    cout << tax_amount << " % Taxes on an meal costing $" << price_before_tax <<
+    cout << tax_amount << " % Taxes on a meal costing $" << price_before_tax <<
     " is $" << amount_of_tax << endl;
     cout << "The total price for the meal is $" << total_price << endl;
  }
