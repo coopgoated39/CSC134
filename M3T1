@@ -1,0 +1,19 @@
+/*
+CSC 134,M3T1
+Curtis Cooper
+9/17/25
+Simple Comparison.
+*/
+
+# include <iostream>
+ using namespace std;
+
+ int main () {
+
+    //get info on two rectangles
+
+    //calculate the area
+
+    //print the output
+
+ }
