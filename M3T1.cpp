@@ -35,6 +35,18 @@ Simple Comparison.
     cout << "First rectangle area = " << area1 << endl;
     cout << "Second rectangle area = " << area2 << endl;
 
+    //compare he two rectangles
+    if (area1 > area2) {
+      cout << "The first rectangle is larger." << endl;
+   
+    }
+    if (area2 > area1) {
+      cout << "The second rectangle is larger." << endl;
+    }
+    if (area1==area2) {
+      cout << "The rectangles are the same area." << endl;
+    }
+
     return 0; 
 
 
