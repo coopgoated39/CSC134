@@ -95,12 +95,40 @@ int main()
     cout << "Charge to cutomer: $" << charge << endl;
     cout << "Profit: $" << profit << endl;
     return 0;
-
 }
 
     void question3 () {
         cout << "Question3" <<
-    }    
+    } 
+
+# include <iostream>
+# include <iomanip>
+using namespace std; 
+
+int main() 
+{
+    //varibles
+    int amount_of_pizzas
+    int amount_of_visitors
+    int slices_per_pizza
+    int total_pizzas_slices_needed
+    int pizza_leftover
+
+    //prompt user for information
+    cout <<"How many pizzas do you want to order?" << endl;
+    cin >> amount_of_pizzas;
+    cout <<"How many slices per Pizza do you want?" << endl;
+    cin >> slices_per_pizza;
+    cout <<"How many visitors are comming?" << endl;
+    cin >> amount_of_visitors
+
+    //calculations
+    total_pizza_slices_needed = amount_of_visitors * 3;
+    total_pizza_slices = amount_of_pizzas * slices_per_pizza; 
+    pizza_leftover = total_pizza_slices - total_pizza_slices_needed;
+
+
+
         
     void question4 () {
         cout << "Question4" <<
