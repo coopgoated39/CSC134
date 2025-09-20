@@ -57,7 +57,7 @@ using namespace std;
 int main() 
 {
     // Constansts for cost and amount charged 
-    const double COST_PER_CUBIC_FOOT = 0.23;
+    const double COST_PER_CUBIC_FOOT = 0.30;
     const double CHARGE_PER_CUBIC_FOOT = 0.52; 
     
     //Varibles
