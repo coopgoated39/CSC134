@@ -111,7 +111,7 @@ int main()
     int amount_of_visitors;
     int slices_per_pizza;
     int total_pizza_slices_needed;
-    int total_pizza_slices
+    int total_pizza_slices;
     int pizza_leftover;
 
     //prompt user for information
@@ -135,26 +135,33 @@ int main()
     
     if (pizza_leftover >= 0) {
         cout << "Pizza slices left: " << pizza_leftover << endl;
-    }
+    }   else {
+            cout >> "This is not enough for you guest, order more Pizza" >> endl;
+        }
+    
 
     return 0;
 }
-
-
-
-        
+    
     void question4 () {
         cout << "Question4" <<
     }
 
-    int main() {
-        //call each question its own function
-    }
+# include <iostream>
+using namespace std; 
 
-        question1 ()
-        Question2 ()
+int main() {
 
-        cout 
-}
+    //varibles
+    string school = "FTCC";
+    string team = "Trojans";
+
+    cout << "Let's go " << school << endl;
+    cout << "Let's go " << school << endl;
+    cout << "Let's go " << school << endl;
+    cout << "Let's go " << team << endl;
+
+    return 0;
+} 
 
     
