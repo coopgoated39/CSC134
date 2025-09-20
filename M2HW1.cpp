@@ -5,6 +5,7 @@ Curtis Cooper
 */
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <cstdlib>
 using namespace std;
@@ -13,49 +14,49 @@ void question1() {
     cout << "Question 1" << endl;
 }
 int main() {
-        // define varibles
-        double starting_account_balance;
-        double deposit_amount;
-        double withdrawl_amount;
-        double final_account_balance
-        string account_name;
+    // define varibles
+    double starting_account_balance;
+    double deposit_amount;
+    double withdrawl_amount;
+    double final_account_balance;
+    string account_name;
         
-        //get user input
-        cout << "What is the name on the account ?" << endl;
-        cin >> account_name;
-        cout << "Hello " << account_name << endl;
-        cout << "what is the account balance" << endl;
-        cin >> starting_account_balance; 
-        cout << "How much money does "  << account_name << "want to deposit?" << endl;
-        cin >> deposit_amount;
-        cout << "How much money does " << account_name << "want to withdraw?" << endl;
-        cin >> withdrawl_amount;
-        //cout << rand(); // TODO
+     //get user input
+    cout << "What is the name on the account ?" << endl;
+    cin >> account_name;
+    cout << "Hello " << account_name << endl;
+     cout << "what is the account balance" << endl;
+    cin >> starting_account_balance; 
+    cout << "How much money does "  << account_name << " want to deposit?" << endl;
+    cin >> deposit_amount;
+    cout << "How much money does " << account_name << " want to withdraw?" << endl;
+    cin >> withdrawl_amount;
+    //cout << rand(); // TODO
 
-        //calculations
-        final_account_balance = starting_account_balance + deposit_amount - withdrawl_amount;
+    //calculations
+    final_account_balance = starting_account_balance + deposit_amount - withdrawl_amount;
         
-        //print statements
-        cout << account_name << endl;
-        cout << "-------------------" << endl;
-        cout << "Account Number: " << rand() << endl;
-        cout <<"--------------------" << endl;
-        cout <<"Final Balance $" << final_account_balance << endl;
+    //print statements
+    cout << account_name << endl;
+    cout << "-------------------" << endl;
+    cout << "Account Number: " << rand() << endl;
+    cout <<"--------------------" << endl;
+    cout <<"Final Balance $" << final_account_balance << endl;
 
-        return 0;
+    return 0;
 }
 
 
     void question2 () {
-        cout << "Question2" <<
+        cout << "Question2" << endl;
     }
 
 # include <iostream>
 # include <iomanip>
 using namespace std; 
 
-int main() 
-{
+int main() {
+
     // Constansts for cost and amount charged 
     const double COST_PER_CUBIC_FOOT = 0.30;
     const double CHARGE_PER_CUBIC_FOOT = 0.52; 
@@ -98,14 +99,14 @@ int main()
 }
 
     void question3 () {
-        cout << "Question3" <<
+        cout << "Question3" << endl;
     } 
 
 # include <iostream>
 using namespace std; 
 
-int main() 
-{
+int main() {
+
     //varibles
     int amount_of_pizzas;
     int amount_of_visitors;
@@ -134,9 +135,9 @@ int main()
     cout <<"------------------------------------" << endl;
     
     if (pizza_leftover >= 0) {
-        cout << "Pizza slices left: " << pizza_leftover << endl;
+        cout << "pizza slices left: " << pizza_leftover << endl;
     }   else {
-            cout >> "This is not enough for you guest, order more Pizza" >> endl;
+            cout <<"This is not enough for your guest, order more pizza" << endl;
         }
     
 
@@ -144,7 +145,7 @@ int main()
 }
     
     void question4 () {
-        cout << "Question4" <<
+        cout << "Question4" << endl;
     }
 
 # include <iostream>
