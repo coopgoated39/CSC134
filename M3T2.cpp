@@ -27,7 +27,7 @@ Game.
     char answer;
 
     do {
-         // roll two dice
+         // roll two dice for the crap game 
          roll1 = ( (rand() % SIDES)+1 );
          cout <<"Your roll is: " << roll1 << endl;
          
