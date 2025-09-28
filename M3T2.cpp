@@ -1,11 +1,11 @@
 /*
-CSC 134,M3LAB1
+CSC 134,M3T2
 Curtis Cooper
 9/28/25
 Game.
 */
 
-// this is crapp game that gives player the option to keep playing.
+// this is crap game that gives player the option to keep playing.
 
 # include <iostream>
 #include <cmath>
