@@ -50,7 +50,7 @@ Game.
             cin >> answer;
         }
     }
-    //continue game until customer wants to stop
+    //continue game until player wants to stop
     while (answer == 'y' || answer == 'Y');
 
     //exit statement
