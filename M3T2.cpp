@@ -14,7 +14,7 @@ Game.
  using namespace std;
 
  int main() {
-    const int SIDES = 6; // yours will differ!
+    const int SIDES = 6; 
 
     //int seed = 19;
     int seed = time(0);
