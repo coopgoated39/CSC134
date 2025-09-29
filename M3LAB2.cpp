@@ -14,11 +14,12 @@ Letter Grades.
  void letter_grade();
 
  int main() {
-    letter_grade();
+    letter_grade()
+    void combat();
     return 0;
  }
 
-void letter_grade() {
+//void letter_grade() {
         double num_grade;
         string letter_grade;
         const double A_Grade = 90;
@@ -50,4 +51,45 @@ void letter_grade() {
 
 }
 
+void combat() {
+
+    //a simple d&d style demo
+
+    int attack_roll
+    int attack_bonus
+    int enemy_armor
+
+    cout <<"You are fighting a goblin." << endl;
+    cout << "Enter you roll." << endl;
+    cin >> attack_roll;
+    cout <<"enter attack bonus" << endl; 
+    cin >> attack_bonus;
+    cout << "enemy armour class" << endl;
+    cin >> enemy_armor;
+
+    if (attack_roll + attack_bonus >= enemy_armor) {
+        cout << "Hit !" << endl;
+    }
+    else { 
+        cout <<"Miss!" << endl;
+    }
+
+    //try again?
+    cout << "Again ? (y/n): ";
+    string again;
+    cin >> again;
+    if (again == "y") {
+        //call function again
+        combat();
+    }
+}
+
+int roll () { 
+    const int SIDES = 6;
+    int my_roll;
+    my_roll = (rand() % SIDES)+1;
+         return my_roll;
+}
+         
+         
  
