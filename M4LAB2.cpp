@@ -22,12 +22,31 @@ int main(){
     cout << endl;
 
     //Example 2: Same thing, with a while loop
-    int ount = 0; 
+    int count = 0; 
     while (count < length) {
-        cout << title;
+        cout << tile;
         count++; //count from 0 to just before length
 
     }
     cout << endl;
+
+    //example 3 for loop but printing in a coloumn (vertically)
+    for (int i = 0; i < height; i++) {
+        cout << title << endl;
+    }
+
+    //example 4: draw the entire rectangle
+    cout << endl; < endl; //white space
+    cout << "rectangle" << length << "x" << height << endl;
+    //outer loop handles printing height number of kines.
+    // inner lopp handles printing each line as length number of tiles.
+    for (int i =0; i < height; i++) {
+        //print the line
+        for  (int j=0; j < length; j++) {
+            cout << tile;
+        }
+    }
+    cout << endl;
+    return0;
 
 }
