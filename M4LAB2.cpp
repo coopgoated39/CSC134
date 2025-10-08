@@ -13,7 +13,7 @@ int main(){
     //declare varibles
     int length = 10;
     int width = 10;
-    string tile = 🎃;
+    string tile = "🎃";
 
     //print horizonally
     for (int i = 0; i < length; i++) {
@@ -32,11 +32,16 @@ int main(){
 
     //example 3 for loop but printing in a coloumn (vertically)
     for (int i = 0; i < height; i++) {
-        cout << title << endl;
+        cout << tile << endl;
     }
 
     //example 4: draw the entire rectangle
-    cout << endl; < endl; //white space
+    cout << endl << endl; //white space
+    cout << "draw a rectangle" << endl;
+    cout << "length? ";
+    cin >> length;
+    cout << "height?" << endl;
+    cin >> height;
     cout << "rectangle" << length << "x" << height << endl;
     //outer loop handles printing height number of kines.
     // inner lopp handles printing each line as length number of tiles.
@@ -47,6 +52,6 @@ int main(){
         }
     }
     cout << endl;
-    return0;
+    return 0;
 
 }
