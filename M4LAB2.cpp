@@ -9,10 +9,10 @@ Game.
 
 using namespace std;
 
-int main(){
+int main() {
     //declare varibles
     int length = 10;
-    int width = 10;
+    int height = 10;
     string tile = "🎃";
 
     //print horizonally
@@ -46,12 +46,11 @@ int main(){
     //outer loop handles printing height number of kines.
     // inner lopp handles printing each line as length number of tiles.
     for (int i =0; i < height; i++) {
-        //print the line
+        cout << endl;
         for  (int j=0; j < length; j++) {
             cout << tile;
         }
     }
-    cout << endl;
     return 0;
 
 }
