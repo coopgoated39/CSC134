@@ -28,14 +28,14 @@ int roll() {
 }
 
 // ========== MAIN FUNCTION ==========
-int main()
-{
+int main() {
+
     srand(static_cast<unsigned int>(time(0)));
 
     cout << "You have chosen to come see the wonderful wizard of oz" << endl;
     cout << "You have expressed a disire to forgo the rest of your FTCC classes for a chance to expedite your success" << endl;
     cout << "This is a risk you are prepared to take" << endl;
-    cout << " Be warned avoiding hard work may come with a price" endl; 
+    cout << " Be warned avoiding hard work may come with a price" << endl; 
     cout << "==================================" << endl;
     cout << " Here is the Dice it is your time to fulfil your destiny ! " << endl;
     cout << "==================================" << endl;
@@ -44,44 +44,26 @@ int main()
     if (start == 1) { // Compare against the value 1
         int diceRoll = roll(); // Call the function and store the result
         cout << "You rolled a " << diceRoll << "!" << endl; 
+    } 
 
-} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-cout << endl;
-// Start the adventure!
-tavern();
-cout << "\n=== THE END ===" << endl;
-return 0;
 }
-// ========== LOCATION FUNCTIONS ==========
-// Each function is one "node" in your story
-void tavern()
-{
-cout << "\nYou wake up in a dusty tavern." << endl;
-cout << "The bartender says there's trouble in the kingdom." << endl;
-cout << "Will you help? (1 = Yes, 2 = No): ";
-int choice;
-cin >> choice;
-if (choice == 1)
-{
-cout << "\n'Brave soul! Head to the forest!'" << endl;
-forest(); // Go to forest function
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
