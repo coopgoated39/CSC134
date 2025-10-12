@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <iomanip>
 using namespace std;
 
 int main() {
@@ -37,7 +38,7 @@ int main() {
     cout <<"--------------------------------" << endl;
 
     double price_of_meal;
-    double tax_rate = 0.08;     // 8% tax
+    double tax_rate = 0.07;     // 7% tax
     double tip_rate = 0.15;     // 15% tip for dine in
     double tax_amount, tip_amount = 0, total_price;
     int order_type;
@@ -52,7 +53,7 @@ int main() {
     // Calculate tax
     tax_amount = price_of_meal * tax_rate;
 
-    // Apply tip only if dine-in
+    // Apply tip only if dinning in
     if (order_type == 1) {
         tip_amount = price_of_meal * tip_rate;
     }
@@ -64,7 +65,7 @@ int main() {
     cout << fixed << setprecision(2);
     cout << "\n----------- RECEIPT -----------" << endl;
     cout << "Meal Price:     $" << price_of_meal << endl;
-    cout << "Tax (8%):       $" << tax_amount << endl;
+    cout << "Tax (7%):       $" << tax_amount << endl;
 
     if (order_type == 1)
         cout << "Tip (15%):      $" << tip_amount << endl;
@@ -76,7 +77,7 @@ int main() {
     cout << "-------------------------------" << endl;
     cout << "Thank you for your order!" << endl;
 
-    return 0;
+    cout << endl;
 
     // ******* Question 4 ********
 
@@ -97,7 +98,6 @@ int main() {
         cout << "Incorrect. The correct answer is " << num1 + num2 << "." << endl;
     }
 
-    cout << endl;
 
     return 0;
 }
