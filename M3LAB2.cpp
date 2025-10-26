@@ -5,91 +5,45 @@ Curtis Cooper
 Letter Grades.
 */
 
-# include <iostream>
-#include <cmath>
-#include <ctime>
-#include <string>
+#include <iostream>
+using namespace std;
 
- using namespace std;
- void letter_grade();
+void letter_grade();  // function prototype
 
- int main() {
-    letter_grade()
-    void combat();
+int main() {
+    letter_grade();   // call the function
     return 0;
- }
-
-//void letter_grade() {
-        double num_grade;
-        string letter_grade;
-        const double A_Grade = 90;
-        const double B_Grade = 80;
-        const double C_Grade = 70;
-        const double D_Grade = 60;
-
-        cout << "Enter a number grade 0-100: ";
-        cin >> num_grade;
-
-        if (num_grade >= A_Grade) {
-            letter_grade = "A";
-        }
-        else if (num_grade >= B_Grade) {
-            letter_grade = "B";
-        }
-        else if (num_grade >= C_Grade) {
-            letter_grade = "C";
-        }
-        else if (num_grade >= D_Grade) {
-            letter_grade = "D";
-        }
-        else { 
-            letter_grade = "F";
-        }
-
-        cout << "A number grade of " << num_grade << " is: " << letter_grade;
-        cout << endl << endl;
-
 }
 
-void combat() {
+// Function definition
+void letter_grade() {
 
-    //a simple d&d style demo
+    double num_grade;
+    string letter;
+    const double A_Grade = 90;
+    const double B_Grade = 80;
+    const double C_Grade = 70;
+    const double D_Grade = 60;
 
-    int attack_roll
-    int attack_bonus
-    int enemy_armor
+    cout << "Enter a number grade (0-100): ";
+    cin >> num_grade;
 
-    cout <<"You are fighting a goblin." << endl;
-    cout << "Enter you roll." << endl;
-    cin >> attack_roll;
-    cout <<"enter attack bonus" << endl; 
-    cin >> attack_bonus;
-    cout << "enemy armour class" << endl;
-    cin >> enemy_armor;
-
-    if (attack_roll + attack_bonus >= enemy_armor) {
-        cout << "Hit !" << endl;
+    if (num_grade >= A_Grade) {
+        letter = "A";
     }
-    else { 
-        cout <<"Miss!" << endl;
+    else if (num_grade >= B_Grade) {
+        letter = "B";
+    }
+    else if (num_grade >= C_Grade) {
+        letter = "C";
+    }
+    else if (num_grade >= D_Grade) {
+        letter = "D";
+    }
+    else {
+        letter = "F";
     }
 
-    //try again?
-    cout << "Again ? (y/n): ";
-    string again;
-    cin >> again;
-    if (again == "y") {
-        //call function again
-        combat();
-    }
+    cout << "A number grade of " << num_grade << " is: " << letter << endl;
 }
 
-int roll () { 
-    const int SIDES = 6;
-    int my_roll;
-    my_roll = (rand() % SIDES)+1;
-         return my_roll;
-}
-         
-         
- 
