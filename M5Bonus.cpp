@@ -269,3 +269,4 @@ int main() {
 
     cout << "Thanks for playing the Game of Destiny! Goodbye." << endl;
     return 0;
+}
