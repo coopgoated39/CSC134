@@ -1,3 +1,9 @@
+/*
+CSC 134
+M5Bonus2.0 - Games  
+Curtis Cooper 10/27/25
+*/
+
 #include <iostream>
 #include <vector>
 #include <map>
