@@ -1,3 +1,9 @@
+/*
+CSC 134
+M5Bonus - Games  
+Curtis Cooper 10/27/25
+*/
+
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
