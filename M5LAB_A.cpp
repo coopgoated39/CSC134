@@ -22,12 +22,8 @@ int main() {
     }
     cout << "Fully rested." << endl;
     
+    return 0; 
+    
 }
 
-int max_levl = 10;
-int start_level = 1;
-int strength = 10 + (start_level *2);
-int dexterity = 8 + (start_level * 3);
-int intelligence = 12 + (start_level * 1);
 
-while 
