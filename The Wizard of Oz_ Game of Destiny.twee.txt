@@ -1,0 +1,224 @@
+:: StoryTitle
+The Wizard of Oz: Game of Destiny
+
+
+:: StoryData
+{
+  "ifid": "C7D3AC6D-6342-4D78-AE07-3D10D5B0F19G",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "Start",
+  "zoom": 1
+}
+
+
+:: Artist {"position":"675,275","size":"100,100"}
+[SCENARIO: ARTIST]
+You choose the path of an **artist** — creative, passionate, and misunderstood.
+(set: $motivation to it + 7)
+(set: $luck to it + 2)
+(display: "Stats")
+Your art inspires others, and whispers of your work reach the Wizard himself.
+
+[[Continue to Wizard|Wizard Check]]
+
+
+:: Criminal {"position":"150,150","size":"100,100"}
+[SCENARIO: CRIMINAL]
+You are a **criminal** — labeled and struggling to find your place in society.
+(set: $motivation to it - 3)
+(set: $luck to it + 1)
+(display: "Stats")
+
+The Wizard offers you redemption if you prove your courage.
+Do you accept the Wizard's challenge?
+
+[[Yes, accept the challenge|Criminal - Accept]]
+[[No, refuse the challenge|Criminal - Refuse]]
+
+
+:: Criminal - Accept {"position":"275,150","size":"100,100"}
+You accept the challenge. Your path to redemption continues.
+
+[[Continue to Wizard|Wizard Check]]
+
+
+:: Criminal - Refuse {"position":"400,225","size":"100,100"}
+You refuse the challenge and fade into obscurity...
+(set: $motivation to 0) // End condition
+
+[[Continue|Wizard Check]]
+
+
+:: Depressed Worker {"position":"1025,25","size":"100,100"}
+[SCENARIO: DEPRESSED WORKER]
+You are a **depressed worker** stuck in a job you hate.
+(set: $motivation to it - 5)
+(display: "Stats")
+
+You meet a mysterious stranger who offers you a chance to change your life.
+Do you accept this risky chance?
+
+[[Yes, accept the chance|Depressed Worker - Accept]]
+[[No, remain in comfort zone|Depressed Worker - Refuse]]
+
+
+:: Depressed Worker - Accept {"position":"1150,25","size":"100,100"}
+You accept the stranger's offer! Your **Luck increased by 2**.
+(set: $luck to it + 2)
+(display: "Stats")
+
+[[Continue to Wizard|Wizard Check]]
+
+
+:: Depressed Worker - Refuse {"position":"25,150","size":"100,100"}
+You choose to remain in your comfort zone. Life stays the same, and your journey ends here...
+(set: $motivation to 0) // End condition
+
+[[Continue|Wizard Check]]
+
+
+:: Dice Roll {"position":"775,25","size":"100,100"}
+(set: $randPercent to (random: 1, 100))
+(set: $maxRoll to (if: $randPercent < ($luck * 5)) [5] else [4])
+(set: $diceRoll to (random: 1, $maxRoll))
+
+(set: $luckEffect to (if: $maxRoll is 5) ["small chance for a 5-roll"] else ["max roll of 4"])
+
+--- DICE ROLL ---
+Your Luck ($luck) gave you a $luckEffect.
+You rolled a **$diceRoll**!
+-----------------
+
+(live: 1.5s)[
+    (after: 1.5s)[
+        (if: $diceRoll is 1)[
+            (goto: "Depressed Worker")
+        ]
+        (else if: $diceRoll is 2)[
+            (goto: "Criminal")
+        ]
+        (else if: $diceRoll is 3)[
+            (goto: "Doctor")
+        ]
+        (else if: $diceRoll is 4)[
+            (goto: "Entrepreneur")
+        ]
+        (else:)[ // diceRoll is 5
+            (goto: "Artist")
+        ]
+    ]
+]
+
+
+:: Display Stats {"position":"275,25","size":"100,100"}
+(display: "Stats")
+
+
+:: Doctor {"position":"900,25","size":"100,100"}
+[SCENARIO: DOCTOR]
+You are a **doctor** — wise, disciplined, and successful.
+(set: $motivation to it + 10)
+(set: $luck to it + 3)
+(display: "Stats")
+Your dedication is recognized. The Wizard of Oz is impressed by your success.
+
+[[Continue to Wizard|Wizard Check]]
+
+
+:: Entrepreneur {"position":"525,275","size":"100,100"}
+[SCENARIO: ENTREPRENEUR]
+You become an **entrepreneur** — taking risks and chasing your dreams.
+(set: $motivation to it + 5)
+(set: $luck to it + 4)
+(display: "Stats")
+One day, you receive an invitation to meet the Wizard of Oz.
+
+[[Continue to Wizard|Wizard Check]]
+
+
+:: Game Over - Low Motivation {"position":"950,525","size":"100,100"}
+==================================
+    G A M E   O V E R
+==================================
+[GAME OVER] Your **motivation has dropped too low**. You have given up.
+Final Motivation: $motivation | Final Luck: $luck
+
+[[Play Again|StoryInit]]
+
+
+:: Game Over - Quit {"position":"1050,275","size":"100,100"}
+==================================
+    G A M E   O V E R
+==================================
+You choose to **stop your journey**. The Wizard bids you farewell.
+Final Motivation: $motivation | Final Luck: $luck
+
+[[Play Again|StoryInit]]
+
+
+:: Start {"position":"275,450","size":"100,100"}
+You have come to see the wonderful Wizard of Oz to expedite your success.
+Be warned: avoiding hard work may come with a price.
+
+(set: $motivation to 10)
+(set: $luck to 5)
+
+Your starting **Motivation**: $motivation | Starting **Luck**: $luck
+
+(link-goto: "When ready to start, roll the dice!", "Wizard Check")
+
+
+:: Stats {"position":"400,25","size":"100,100"}
+---
+|**Current Stats**| |
+|**Motivation**| $motivation |
+|**Luck**| $luck |
+---
+
+
+:: StoryInit {"position":"450,550","size":"100,100"}
+(set: $motivation to 10)
+(set: $luck to 5)
+
+[[Start]]
+
+
+:: Victory {"position":"850,300","size":"100,100"}
+==================================
+    *** J O U R N E Y   C O M P L E T E D ***
+==================================
+*** VICTORY ACHIEVED! ***
+The Wizard declares you a master of perseverance and grants you eternal success!
+
+Final Motivation: $motivation | Final Luck: $luck
+
+[[Play Again|StoryInit]]
+
+
+:: Wizard Check {"position":"525,25","size":"100,100"}
+(display: "Wizard Logic")
+
+
+:: Wizard Logic {"position":"650,25","size":"100,100"}
+(display: "Stats")
+
+(if: $motivation >= 20)[
+    (goto: "Victory")
+]
+(else if: $motivation <= 0)[
+    (goto: "Game Over - Low Motivation")
+]
+(else:)[
+    (set: $hasRolled to false)
+    ==================================
+        THE WONDERFUL WIZARD OF OZ! 
+    ==================================
+    The Wizard says: 'All paths — success, failure, or struggle — teach wisdom.'
+
+    You have not yet reached true perseverance.
+    You may choose to roll again for a new destiny.
+    
+    [[Roll for Destiny|Dice Roll]]
+    [[Quit Journey|Game Over - Quit]]
+]

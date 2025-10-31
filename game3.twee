@@ -1,0 +1,587 @@
+// === AI ASSISTANCE DOCUMENTATION ===
+// LLM Used: Google Gemini
+//
+// PROMPT 1:
+// i want this converted into a .twee format. eacg decision point should become a passage.:  #include <iostream>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+
+// ========== FUNCTION PROTOTYPES ==========
+void Doctor();            // A possible path
+void Depressed_worker();  // Another path
+void Criminal();          // Possible path
+void gameOver();          // An ending
+int roll();               // Function for dice roll
+
+// ========== FUNCTION DEFINITIONS ==========
+int roll() {
+    int dice = (rand() % 3) + 1;
+    return dice;
+}
+
+void Doctor() {
+    cout << "You are a doctor — wise, disciplined, and successful." << endl;
+    cout << "You worked hard and earned your success through persistence." << endl;
+    cout << "Congratulations! You made it." << endl;
+    gameOver();
+}
+
+void Depressed_worker() {
+    cout << "You are a depressed worker stuck in a job you hate." << endl;
+    cout << "Would you like to roll again for better luck? (1 = Yes, 0 = No): ";
+    int choice;
+    cin >> choice;
+    if (choice == 1) {
+        int diceRoll = roll();
+        cout << "You rolled a " << diceRoll << "!" << endl;
+        if (diceRoll == 2)
+            Criminal();
+        else if (diceRoll == 3)
+            Doctor();
+        else
+            Depressed_worker();
+    } else {
+        gameOver();
+    }
+}
+
+void Criminal() {
+    cout << "You are a criminal — labeled and struggling to find your place in society." << endl;
+    cout << "Sometimes shortcuts come with consequences." << endl;
+    gameOver();
+}
+
+void gameOver() {
+    cout << "==================================" << endl;
+    cout << "           GAME OVER              " << endl;
+    cout << "==================================" << endl;
+}
+
+// ========== MAIN FUNCTION ==========
+int main() {
+    srand(static_cast<unsigned int>(time(0)));
+
+    cout << "You have chosen to come see the wonderful Wizard of Oz!" << endl;
+    cout << "You wish to skip your FTCC classes and expedite your success." << endl;
+    cout << "Be warned: avoiding hard work may come with a price." << endl;
+    cout << "==================================" << endl;
+    cout << "Here is the Dice — it is your time to fulfill your destiny!" << endl;
+    cout << "==================================" << endl;
+
+    int start;
+    cout << "When ready to start, type 1: ";
+    cin >> start;
+
+    if (start == 1) {
+        int diceRoll = roll();
+        cout << "You rolled a " << diceRoll << "!" << endl;
+
+        if (diceRoll == 1)
+            Depressed_worker();
+        else if (diceRoll == 2)
+            Criminal();
+        else if (diceRoll == 3)
+            Doctor();
+    } else {
+        cout << "Maybe next time you'll be ready for the challenge!" << endl;
+    }
+
+    return 0;
+} 
+//
+// RESULT: This worked good but then i choose to switch to a more elaborate choice game that i had enhanced using AI in class. AI instructed me to choose a specific Twine dialect to use. I choose Harlowe 
+//
+// PROMPT 2:
+// convert this into .twee format compatible with Harlowe story format.    #include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <string>
+#include <limits> // For numeric_limits and robust input handling
+
+// Use std namespace to avoid 'using namespace std;' globally, which is better practice.
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+
+// ========== FUNCTION PROTOTYPES ==========
+// Helper function for safe integer input
+int get_user_choice(int min, int max, const string& prompt);
+
+// Core game mechanic
+int roll(int luck);
+
+// Scenario functions
+void Doctor(int &motivation, int &luck);
+void Depressed_worker(int &motivation, int &luck);
+void Criminal(int &motivation, int &luck);
+void Entrepreneur(int &motivation, int &luck);
+void Artist(int &motivation, int &luck);
+
+// Game flow functions
+bool Wizard(int &motivation, int &luck);
+void display_stats(int motivation, int luck);
+bool play_game(); // New function to contain the entire game loop
+
+// ========== INPUT HELPER FUNCTION ==========
+
+/**
+ * @brief Safely reads an integer input from the user within a specified range.
+ * @param min The minimum acceptable value.
+ * @param max The maximum acceptable value.
+ * @param prompt The message to display to the user.
+ * @return int The validated user input.
+ */
+int get_user_choice(int min, int max, const string& prompt) {
+    int choice;
+    while (true) {
+        cout << prompt;
+        // Check if the input operation failed (e.g., non-numeric input)
+        if (!(cin >> choice)) {
+            cout << "\n[System] Invalid input. Please enter a number." << endl;
+            cin.clear(); // Clear the error flags
+            // Ignore the rest of the line to clear the bad input buffer
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        } else if (choice < min || choice > max) {
+            // Check if the input is outside the acceptable range
+            cout << "\n[System] Choice must be between " << min << " and " << max << ". Try again." << endl;
+        } else {
+            // Input is valid
+            return choice;
+        }
+    }
+}
+
+// ========== STATS DISPLAY HELPER ==========
+
+void display_stats(int motivation, int luck) {
+    cout << "----------------------------------" << endl;
+    cout << " Current Stats | Motivation: " << motivation << " | Luck: " << luck << endl;
+    cout << "----------------------------------" << endl;
+}
+
+// ========== DICE ROLL MECHANIC ==========
+
+/**
+ * @brief Rolls a dice, with luck influencing the outcome.
+ * Luck increases the chance of rolling higher numbers (up to a 5).
+ * @param luck The player's luck stat.
+ * @return int The dice roll result (1 to 5).
+ */
+int roll(int luck) {
+    // 1. Determine the maximum possible roll.
+    // Base max roll is 4. Luck gives a chance (luck * 5)% to increase the max roll to 5.
+    int max_roll = ((rand() % 100) < (luck * 5)) ? 5 : 4;
+
+    // 2. Roll the dice between 1 and the determined max_roll.
+    int dice = (rand() % max_roll) + 1;
+
+    // Output the roll result and explain the luck effect
+    cout << "--- DICE ROLL ---" << endl;
+    cout << "Your Luck (" << luck << ") gave you a " << (max_roll == 5 ? "small chance for a 5-roll" : "max roll of 4") << "." << endl;
+    cout << "You rolled a **" << dice << "**!" << endl;
+    cout << "-----------------" << endl;
+    return dice;
+}
+
+// ========== SCENARIO DEFINITIONS ==========
+
+void Doctor(int &motivation, int &luck) {
+    cout << "\n[SCENARIO: DOCTOR]" << endl;
+    cout << "You are a **doctor** — wise, disciplined, and successful." << endl;
+    motivation += 10;
+    luck += 3;
+    display_stats(motivation, luck);
+    cout << "Your dedication is recognized. The Wizard of Oz is impressed by your success." << endl;
+}
+
+void Depressed_worker(int &motivation, int &luck) {
+    cout << "\n[SCENARIO: DEPRESSED WORKER]" << endl;
+    cout << "You are a **depressed worker** stuck in a job you hate." << endl;
+    motivation -= 5;
+    display_stats(motivation, luck);
+
+    cout << "You meet a mysterious stranger who offers you a chance to change your life." << endl;
+    int choice = get_user_choice(0, 1, "Do you accept this risky chance? (1 = Yes, 0 = No): ");
+
+    if (choice == 1) {
+        luck += 2;
+        cout << "\nYou accept the stranger's offer! Your Luck increased by 2." << endl;
+        // The game flow will return to the Wizard/Roll section in the main loop
+    } else {
+        cout << "You choose to remain in your comfort zone. Life stays the same, and your journey ends here..." << endl;
+        // To immediately end the game, we decrease motivation below the win condition
+        motivation = 0;
+    }
+}
+
+void Criminal(int &motivation, int &luck) {
+    cout << "\n[SCENARIO: CRIMINAL]" << endl;
+    cout << "You are a **criminal** — labeled and struggling to find your place in society." << endl;
+    motivation -= 3;
+    luck += 1;
+    display_stats(motivation, luck);
+
+    cout << "The Wizard offers you redemption if you prove your courage." << endl;
+    int choice = get_user_choice(0, 1, "Do you accept the Wizard's challenge? (1 = Yes, 0 = No): ");
+
+    if (choice == 0) {
+        cout << "You refuse the challenge and fade into obscurity..." << endl;
+        motivation = 0; // End condition
+    }
+}
+
+void Entrepreneur(int &motivation, int &luck) {
+    cout << "\n[SCENARIO: ENTREPRENEUR]" << endl;
+    cout << "You become an **entrepreneur** — taking risks and chasing your dreams." << endl;
+    motivation += 5;
+    luck += 4;
+    display_stats(motivation, luck);
+    cout << "One day, you receive an invitation to meet the Wizard of Oz." << endl;
+}
+
+void Artist(int &motivation, int &luck) {
+    cout << "\n[SCENARIO: ARTIST]" << endl;
+    cout << "You choose the path of an **artist** — creative, passionate, and misunderstood." << endl;
+    motivation += 7;
+    luck += 2;
+    display_stats(motivation, luck);
+    cout << "Your art inspires others, and whispers of your work reach the Wizard himself." << endl;
+}
+
+// ========== GAME FLOW HUB (THE WIZARD) ==========
+
+/**
+ * @brief The Wizard acts as the main game checkpoint.
+ * @param motivation The player's motivation stat.
+ * @param luck The player's luck stat.
+ * @return bool Returns true if the game should continue (i.e., roll again), false otherwise (win or quit).
+ */
+bool Wizard(int &motivation, int &luck) {
+    cout << "\n==================================" << endl;
+    cout << "     THE WONDERFUL WIZARD OF OZ!    " << endl;
+    cout << "==================================" << endl;
+    cout << "He says: 'All paths — success, failure, or struggle — teach wisdom.'" << endl;
+    display_stats(motivation, luck);
+
+    // WIN CONDITION CHECK
+    if (motivation >= 20) {
+        cout << "\n*** VICTORY ACHIEVED! ***" << endl;
+        cout << "The Wizard declares you a master of perseverance and grants you eternal success!" << endl;
+        return false; // Game ends
+    }
+
+    // CONTINUE OR QUIT
+    cout << "\nYou have not yet reached true perseverance." << endl;
+    int again = get_user_choice(0, 1, "You may choose to roll again for a new destiny. (1 = Yes, 0 = No): ");
+
+    if (again == 1) {
+        return true; // Continue to the next roll/scenario
+    } else {
+        cout << "You choose to stop your journey. The Wizard bids you farewell." << endl;
+        return false; // Game ends
+    }
+}
+
+// ========== CORE GAME LOOP ==========
+
+/**
+ * @brief Contains the main game logic and flow.
+ * @return bool Returns true if the player chooses to restart the game, false otherwise.
+ */
+bool play_game() {
+    // --- Initialization ---
+    int motivation = 10;
+    int luck = 5;
+    bool game_running = true;
+
+    cout << "\n##################################" << endl;
+    cout << "       GAME OF DESTINY STARTED      " << endl;
+    cout << "##################################" << endl;
+    cout << "You have come to see the wonderful Wizard of Oz to expedite your success." << endl;
+    cout << "Be warned: avoiding hard work may come with a price." << endl;
+    cout << "Your starting Motivation: " << motivation << " | Starting Luck: " << luck << endl;
+    cout << "----------------------------------" << endl;
+
+    int start = get_user_choice(1, 1, "When ready to start, type 1: ");
+    if (start != 1) return false; // Should not happen with current logic, but safe fail.
+
+    // --- Main Game Loop ---
+    while (game_running) {
+        // 1. Roll for Destiny
+        int diceRoll = roll(luck);
+
+        // 2. Determine Scenario
+        if (diceRoll == 1)
+            Depressed_worker(motivation, luck);
+        else if (diceRoll == 2)
+            Criminal(motivation, luck);
+        else if (diceRoll == 3)
+            Doctor(motivation, luck);
+        else if (diceRoll == 4)
+            Entrepreneur(motivation, luck);
+        else // diceRoll == 5 (Only possible with high luck)
+            Artist(motivation, luck);
+
+        // 3. Check with the Wizard (Central Game Hub)
+        // If Wizard returns false, the game ends (Win or Manual Quit)
+        if (!Wizard(motivation, luck)) {
+            game_running = false;
+        }
+
+        // Additional fail-safe exit condition for scenarios that set motivation = 0
+        if (motivation <= 0 && game_running) {
+            cout << "\n[GAME OVER] Your motivation has dropped too low. You have given up." << endl;
+            game_running = false;
+        }
+    }
+
+    // --- Game Over ---
+    cout << "\n==================================" << endl;
+    if (motivation >= 20) {
+        cout << "       *** J O U R N E Y   C O M P L E T E D *** " << endl;
+    } else {
+        cout << "               G A M E   O V E R                " << endl;
+    }
+    cout << "==================================" << endl;
+    cout << "Final Motivation: " << motivation << " | Final Luck: " << luck << endl;
+
+    int restart = get_user_choice(0, 1, "Would you like to play again? (1 = Yes, 0 = No): ");
+    return (restart == 1); // Return true if player wants to restart
+}
+
+// ========== MAIN FUNCTION (RESTART MANAGER) ==========
+
+int main() {
+    // Seed the random number generator only once at the start
+    srand(static_cast<unsigned int>(time(0)));
+
+    bool play_again = true;
+    while (play_again) {
+        play_again = play_game();
+    }
+
+    cout << "Thanks for playing the Game of Destiny! Goodbye." << endl;
+    return 0;
+}
+//
+// RESULT: The overall story was better however this included some formats that twine didi not reconize like the HR: line. It does not convert to the Harlowe. 
+//
+// 
+//
+// MANUAL FIXES:
+// - [List any changes you made by hand]
+// - [Why did you need to make them?]
+//
+// ================================
+
+
+:: StoryTitle
+The Wizard of Oz: Game of Destiny
+
+:: StoryData
+{"ifid": "C7D3AC6D-6342-4D78-AE07-3D10D5B0F19G", "format": "Harlowe", "format-version": "3.3.8", "start": "Start"}
+
+:: StoryInit
+(set: $motivation to 10)
+(set: $luck to 5)
+
+:: Start
+You have come to see the wonderful Wizard of Oz to expedite your success.
+Be warned: avoiding hard work may come with a price.
+
+Your starting **Motivation**: $motivation | Starting **Luck**: $luck
+
+(link-goto: "When ready to start, roll the dice!", "Wizard Check")
+
+:: Display Stats
+(display: "Stats")
+
+:: Stats
+(hr:)
+|**Current Stats**| |
+|**Motivation**| $motivation |
+|**Luck**| $luck |
+(hr:)
+
+:: Wizard Check
+(display: "Wizard Logic")
+
+:: Wizard Logic
+(display: "Stats")
+
+(if: $motivation >= 20)[
+    (goto: "Victory")
+]
+(else if: $motivation <= 0)[
+    (goto: "Game Over - Low Motivation")
+]
+(else:)[
+    (set: $hasRolled to false)
+    ==================================
+        THE WONDERFUL WIZARD OF OZ! 
+    ==================================
+    The Wizard says: 'All paths — success, failure, or struggle — teach wisdom.'
+
+    You have not yet reached true perseverance.
+    You may choose to roll again for a new destiny.
+    
+    [[Roll for Destiny|Dice Roll]]
+    [[Quit Journey|Game Over - Quit]]
+]
+
+:: Dice Roll
+(set: $randPercent to (random: 1, 100))
+(set: $maxRoll to (if: $randPercent < ($luck * 5)) [5] else [4])
+(set: $diceRoll to (random: 1, $maxRoll))
+
+(set: $luckEffect to (if: $maxRoll is 5) ["small chance for a 5-roll"] else ["max roll of 4"])
+
+--- DICE ROLL ---
+Your Luck ($luck) gave you a $luckEffect.
+You rolled a **$diceRoll**!
+-----------------
+
+(live: 1.5s)[
+    (after: 1.5s)[
+        (if: $diceRoll is 1)[
+            (goto: "Depressed Worker")
+        ]
+        (else if: $diceRoll is 2)[
+            (goto: "Criminal")
+        ]
+        (else if: $diceRoll is 3)[
+            (goto: "Doctor")
+        ]
+        (else if: $diceRoll is 4)[
+            (goto: "Entrepreneur")
+        ]
+        (else:)[ // diceRoll is 5
+            (goto: "Artist")
+        ]
+    ]
+]
+
+:: Doctor
+[SCENARIO: DOCTOR]
+You are a **doctor** — wise, disciplined, and successful.
+(set: $motivation to it + 10)
+(set: $luck to it + 3)
+(display: "Stats")
+Your dedication is recognized. The Wizard of Oz is impressed by your success.
+
+[[Continue to Wizard|Wizard Check]]
+
+:: Depressed Worker
+[SCENARIO: DEPRESSED WORKER]
+You are a **depressed worker** stuck in a job you hate.
+(set: $motivation to it - 5)
+(display: "Stats")
+
+You meet a mysterious stranger who offers you a chance to change your life.
+Do you accept this risky chance?
+
+[[Yes, accept the chance|Depressed Worker - Accept]]
+[[No, remain in comfort zone|Depressed Worker - Refuse]]
+
+:: Depressed Worker - Accept
+You accept the stranger's offer! Your **Luck increased by 2**.
+(set: $luck to it + 2)
+(display: "Stats")
+
+[[Continue to Wizard|Wizard Check]]
+
+:: Depressed Worker - Refuse
+You choose to remain in your comfort zone. Life stays the same, and your journey ends here...
+(set: $motivation to 0) // End condition
+
+[[Continue|Wizard Check]]
+
+:: Criminal
+[SCENARIO: CRIMINAL]
+You are a **criminal** — labeled and struggling to find your place in society.
+(set: $motivation to it - 3)
+(set: $luck to it + 1)
+(display: "Stats")
+
+The Wizard offers you redemption if you prove your courage.
+Do you accept the Wizard's challenge?
+
+[[Yes, accept the challenge|Criminal - Accept]]
+[[No, refuse the challenge|Criminal - Refuse]]
+
+:: Criminal - Accept
+You accept the challenge. Your path to redemption continues.
+
+[[Continue to Wizard|Wizard Check]]
+
+:: Criminal - Refuse
+You refuse the challenge and fade into obscurity...
+(set: $motivation to 0) // End condition
+
+[[Continue|Wizard Check]]
+
+:: Entrepreneur
+[SCENARIO: ENTREPRENEUR]
+You become an **entrepreneur** — taking risks and chasing your dreams.
+(set: $motivation to it + 5)
+(set: $luck to it + 4)
+(display: "Stats")
+One day, you receive an invitation to meet the Wizard of Oz.
+
+[[Continue to Wizard|Wizard Check]]
+
+:: Artist
+[SCENARIO: ARTIST]
+You choose the path of an **artist** — creative, passionate, and misunderstood.
+(set: $motivation to it + 7)
+(set: $luck to it + 2)
+(display: "Stats")
+Your art inspires others, and whispers of your work reach the Wizard himself.
+
+[[Continue to Wizard|Wizard Check]]
+
+:: Victory
+==================================
+    *** J O U R N E Y   C O M P L E T E D ***
+==================================
+*** VICTORY ACHIEVED! ***
+The Wizard declares you a master of perseverance and grants you eternal success!
+
+Final Motivation: $motivation | Final Luck: $luck
+
+[[Play Again|StoryInit]]
+
+:: Game Over - Low Motivation
+==================================
+    G A M E   O V E R
+==================================
+[GAME OVER] Your **motivation has dropped too low**. You have given up.
+Final Motivation: $motivation | Final Luck: $luck
+
+[[Play Again|StoryInit]]
+
+:: Game Over - Quit
+==================================
+    G A M E   O V E R
+==================================
+You choose to **stop your journey**. The Wizard bids you farewell.
+Final Motivation: $motivation | Final Luck: $luck
+
+[[Play Again|StoryInit]]
+
+
+=== REFLECTION ON PROMPT WRITING ===
+
+What made a good prompt?
+My prompts were good because they fully explained what i wanted to AI to do in detail.
+
+What made a bad prompt?
+I didnt make a bad prompt. The AI gave a logical answer but the at a certain point the varibles where incompatible.
+
+What did I learn about working with AI assistants?
+I learned that AI assistants have limits. They can only respond a certain extent,then human knowledge has to superceed the prompts output. 
+
+If I did this again, I would...
+Use a less ellaborate story so it can easily be converted over without worrying about twines varibles.
