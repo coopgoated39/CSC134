@@ -14,8 +14,10 @@ int main() {
 
     // *******Question 1 *****
 
-    int number = 5;   // The number for the times table
-    int i = 1;        // Counter starting at 1
+    // The number for the times table
+    int number = 5;  
+    // Counter starting at 1
+    int i = 1;       
 
     // While loop to print 5 times table from 1 to 12
     while (i <= 12) {
