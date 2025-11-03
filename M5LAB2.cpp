@@ -12,10 +12,11 @@ using namespace std;
 // getWidth, getArea, and displayData
 // functions here.
 
+
 double get_length(); 
 double get_width();
 double get_area(double length, double width);
-void display_data(double length, double length, double area);
+void display_data(double length, double width, double area);
 
 
 int main()
@@ -34,10 +35,10 @@ int main()
    width = get_width();
    
    // Get the rectangle's area.
-   area = get_area();
+   area = get_area(length, width);
    
    // Display the rectangle's data.
-   displayData(length, width, area);
+   display_data(length, width, area);
           
    return 0;
 }
@@ -72,8 +73,8 @@ double get_area(double length, double width){
 }
 
 // display data - Void funtion, simply outputs the values in a readable format.
-void display_data(double length, double length, double area) {
-    cout << "Rectangle is " << length << "by" << width << "." << endl;
-    cout << "Area is: " << area << endl;
+void display_data(double length, double width, double area) {
+    cout << "Rectangle is " << length << " by " << width << "." << endl;
+    cout << "The area is: " << area << endl;
     return; //reutrn is assumed for a void funtion.
 }
