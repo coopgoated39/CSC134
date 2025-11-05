@@ -92,12 +92,12 @@ void game_start() {
     */
    int choice;
    // R for Raw -- print every line as is until it ends
-   cout << R"(while looking for a Home shoping, you arrive at a home that is not listed in the MLS but has a big For Sale sign in the front with 
-   a very reasonable price. This home is your dream home from curb appeal. It appears to have a pool in the backyard, a patio for the grill, 
-   everything you invisioned when thinking about buying a home.It appears to be well manicured and maintained, However this home does not have 
-   any sale history. It sits in the back of a Cul-de-sac infront of a cemetery reportedly people have had weird paranormal experiences with in the past.
-    The sign states there is an open house feel free to walk in and check things out. You think you see a light on in the living room, it is late in the evening 
-    the sun is about to go down...?
+   cout << R"(while Home shoping, you arrive at a home that is not listed in the MLS but has a big For Sale sign in the front with 
+    a very reasonable price. This home is your dream home from curb appeal. It appears to have a pool in the backyard, a patio for the grill, 
+    everything you invisioned when thinking about buying a home.It appears to be well manicured and maintained, However this home does not have 
+    any sale history. It sits in the back of a Cul-de-sac infront of a cemetery reportedly people have had weird paranormal experiences with in the past.
+    The sign states there is an open house feel free to walk in and check things out. You think you see a light on in the living room, but no vehicle in the
+    drive way. it is late in the evening the sun is about to go down...?
     )";
     // show choices
     showChoices("Go check the front door.",
