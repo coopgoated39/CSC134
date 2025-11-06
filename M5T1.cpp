@@ -1,8 +1,8 @@
 /* CSC 134
- M5T1
-  Curtis Cooper
-   6 NOV 2025
-   */
+M5T1
+Curtis Cooper
+6 NOV 2025
+*/
 
 #include <iostream>
 using namespace std;
