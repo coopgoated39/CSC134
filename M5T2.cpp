@@ -10,7 +10,7 @@ squares of numbers
 using namespace std;
 
 // value returning function
-int square(int n) {
+int squared(int n) {
     return n * n;
 }
 
@@ -20,9 +20,9 @@ void PrintAnswerLine(int num, int sq) {
 }
 
 int main() {
-    // loop from 1 to 10 and use the functions
+    // loop from 1 to 10 and use the functions and the count ++
     for (int i = 1; i <= 10; i++) {
-        int result = square(i);
+        int result = squared(i);
         PrintAnswerLine(i, result);
     }
 
