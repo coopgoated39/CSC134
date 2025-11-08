@@ -2,7 +2,7 @@
 M5T2
 Curtis Cooper
 8 NOV 2025
-squares of numbers
+numbers squared
 */
 
 
