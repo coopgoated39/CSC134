@@ -267,5 +267,8 @@ It was waiting.
 )";
 
     cout << "--- THE END ---";
-    cout << "The moral of the game story is to mind your business, once you put yorn nose where it doesn't belong, all roads lead to falling in darkeness"
+
+    cout << R"(The moral of the game story is to mind your business, 
+    once you put your nose where it doesn't belong, all roads lead to falling in darkeness
+    Stay on your course do not wonder off)";
 }
