@@ -15,7 +15,7 @@ void game_start();
 void game_front_door();
 void choice_back_door();
 void choice_go_home();
-void final_showdown();     // NEW – exciting ending
+void final_showdown();  
 void secret_basement();
 const int MAX = 3; // max possible choices per node
 
@@ -121,6 +121,7 @@ void game_start() {
     if (choice == 3) {
         choice_go_home();
 }
+}
 void game_front_door() {
     int choice;
 
@@ -133,20 +134,20 @@ Do you enter?
 
     showChoices("Push the door open.",
                 "Knock politely.",
-                "Call out: ‘Hello? Anyone here?’");
+                "Call out, ‘Hello? Anyone here?’");
 
     choice = getPlayerChoice(MAX);
 
     if (choice == 1) {
-        cout << "You push it open... and feel something brush past your leg. A shadow darts deeper inside." << endl;
+        cout << "You push it open and feel something brush past your leg. A shadow darts deeper inside." << endl;
         secret_basement();
     }
     else if (choice == 2) {
-        cout << "You knock. The door swings open wider... as if inviting you in." << endl;
+        cout << "You knock. The door swings open wider as if inviting you in." << endl;
         secret_basement();
     }
     else if (choice == 3) {
-        cout << "Your voice echoes. Something upstairs answers with a faint whisper: 'Come find me...'" << endl;
+        cout << "Your voice echoes. Something upstairs answers with a faint whisper: 'Come find me'" << endl;
         secret_basement();
     }
 }
@@ -154,7 +155,7 @@ Do you enter?
 void choice_back_door() {
     int choice;
 
-    cout << R"(You walk around back. The garden is perfectly trimmed…
+    cout << R"(You walk around back. The garden is perfectly trimmed
 too perfect. No weeds, no insects, no signs of life.
 
 Then a motion light pops on.
@@ -169,11 +170,11 @@ A low growl vibrates the air.
     choice = getPlayerChoice(MAX);
 
     if (choice == 1) {
-        cout << "You step behind the shed—fresh footprints lead to a cellar door you hadn't seen before." << endl;
+        cout << "You step behind the shed and fresh footprints lead to a cellar door you hadn't seen before." << endl;
         secret_basement();
     }
     else if (choice == 2) {
-        cout << "The shed is empty... except for a long staircase descending into darkness." << endl;
+        cout << "The shed is empty except for a long staircase descending into darkness." << endl;
         secret_basement();
     }
     else if (choice == 3) {
@@ -186,7 +187,7 @@ void choice_go_home() {
     int choice;
 
     cout << R"(As you turn to leave, something whispers behind you:
-"Don't go..."
+"Don't go"
 
 Cold air wraps around your neck.
 Your car suddenly feels miles away.
@@ -203,7 +204,7 @@ Your car suddenly feels miles away.
         secret_basement();
     }
     else if (choice == 2) {
-        cout << "You sprint! But every step feels heavier. You trip—something drags you back toward the house." << endl;
+        cout << "You sprint! But every step feels heavier. You trip something drags you back toward the house." << endl;
         secret_basement();
     }
 }
@@ -217,7 +218,7 @@ void secret_basement() {
 
     cout << R"(You find yourself at the entrance to a hidden basement.
 A staircase descends into total darkness. The smell of earth and old wood fills the air.
-A distant humming pulses beneath the ground—steady, unnatural.
+A distant humming pulses beneath the ground steady, unnatural.
 
 Something *down there* is awake.
 )";
@@ -229,15 +230,15 @@ Something *down there* is awake.
     choice = getPlayerChoice(MAX);
 
     if (choice == 1) {
-        cout << "You walk down the steps... each creak echoes like a scream." << endl;
+        cout << "You walk down the steps each creak echoes like a scream." << endl;
         final_showdown();
     }
     else if (choice == 2) {
-        cout << "Your voice echoes… then stops abruptly, cut short by a whisper beside your ear: 'Finally...'" << endl;
+        cout << "Your voice echoes then stops abruptly, cut short by a whisper beside your ear: 'Finally...'" << endl;
         final_showdown();
     }
     else if (choice == 3) {
-        cout << "You turn to flee—but the door slams shut. Locks click from the inside." << endl;
+        cout << "You turn to flee but the door slams shut. Locks click from the inside." << endl;
         final_showdown();
     }
 }
@@ -255,7 +256,7 @@ For a moment, the world is silent.
 
 Then every candle goes out.
 
-A voice—hundreds of voices layered together—whispers:
+A voice hundreds of voices layered together whispers:
 
         "Welcome home."
 
@@ -265,5 +266,6 @@ Your last thought is that the house wasn't abandoned…
 It was waiting.
 )";
 
-    cout << "\n\n--- THE END ---\n";
+    cout << "--- THE END ---";
+    cout << "The moral of the game story is to mind your business, once you put yorn nose where it doesn't belong, all roads lead to falling in darkeness"
 }
