@@ -266,9 +266,9 @@ Your last thought is that the house wasn't abandoned…
 It was waiting.
 )";
 
-    cout << "--- THE END ---";
+    cout << "--- THE END ---\n";
 
     cout << R"(The moral of the game story is to mind your business, 
-    once you put your nose where it doesn't belong, all roads lead to falling in darkeness
-    Stay on your course do not wonder off)";
+    once you put your nose where it doesn't belong, all roads lead 
+    to falling in darkeness stay on your course do not wonder off)";
 }
