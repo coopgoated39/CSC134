@@ -36,6 +36,7 @@ char fireShot();
 void playerTurn();
 void opponentTurn();
 void checkGameOver();
+void resetGameState();
 
 // ============================================================================
 // MAIN
@@ -241,4 +242,12 @@ void opponentTurn() {
 void checkGameOver() {
     if (playerScore <= 0 || opponentScore <= 0)
         gameOver = true;
+}
+
+void resetGameState() {
+    playerScore = 3;
+    opponentScore = 3;
+    currentPlayer = "Player";
+    gameOver = false;
+    airsoftGun.clear();
 }
