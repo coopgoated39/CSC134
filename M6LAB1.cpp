@@ -10,19 +10,17 @@ Curtis Cooper
 #include <algorithm>
 #include <random>
 #include <ctime>
+#include <limits>
 using namespace std;
 
 // ============================================================================
-// GLOBAL VARIABLES - Accessible to all functions
+// GLOBAL VARIABLES
 // ============================================================================
-// The super soaker's cartridges ('W' = Water, 'S' = Slime)
-vector<char> superSoaker;
+vector<char> airsoftGun; // 'B' = Plastic BB, 'P' = Pain Shot
 
-// Player scores
 int playerScore = 3;
 int opponentScore = 3;
 
-// Game state
 string currentPlayer = "Player";
 bool gameOver = false;
 
@@ -30,251 +28,217 @@ bool gameOver = false;
 // FUNCTION PROTOTYPES
 // ============================================================================
 void setupGame();
-void loadSuperSoaker(int waterCount, int slimeCount);
-void shuffleSuperSoaker();
+void loadAirsoftGun(int bbCount, int painCount);
+void shuffleAirsoftGun();
 void displayGameState();
-void displaySuperSoaker(bool showContents);
+void displayGun(bool showContents);
 char fireShot();
 void playerTurn();
 void opponentTurn();
 void checkGameOver();
 
 // ============================================================================
-// MAIN GAME LOOP
+// MAIN
 // ============================================================================
 int main() {
-    srand(time(0));  // Seed random number generator
-    
+    srand(time(0));
+
     cout << "╔════════════════════════════════════════╗" << endl;
-    cout << "║     SLIME ROULETTE: SUPER SOAKER      ║" << endl;
-    cout << "║    The Work-Safe Dare-Ya Roulette     ║" << endl;
+    cout << "║            AIRSOFT SHOOTOUT            ║" << endl;
+    cout << "║        Safe-Mode Shooting Game         ║" << endl;
     cout << "╚════════════════════════════════════════╝" << endl;
     cout << "\nRules:" << endl;
-    cout << "🔵 Blue cartridges = Harmless water (you get another turn!)" << endl;
-    cout << "🟢 Green cartridges = Slime (lose a point!)" << endl;
+    cout << "⚪ Plastic BB = Harmless shot (you get another turn!)" << endl;
+    cout << "🔴 Pain Shot = Stinging hit! (lose 1 point)" << endl;
     cout << "First to 0 points loses!\n" << endl;
-    
+
     setupGame();
-    
-    // Main game loop
+
     while (!gameOver) {
-        if (currentPlayer == "Player") {
+        if (currentPlayer == "Player")
             playerTurn();
-        } else {
+        else
             opponentTurn();
-        }
-        
+
         checkGameOver();
-        
-        // If super soaker is empty, reload for next round
-        if (superSoaker.empty() && !gameOver) {
-            cout << "\n💦 Super soaker is empty! Reloading for next round..." << endl;
+
+        if (airsoftGun.empty() && !gameOver) {
+            cout << "\n🔄 Magazine empty! Reloading..." << endl;
             cout << "Press Enter to continue...";
-            cin.ignore();
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
             cin.get();
             setupGame();
         }
     }
-    
-    // Game over
+
     cout << "\n╔════════════════════════════════════════╗" << endl;
-    cout << "║            GAME OVER!                  ║" << endl;
+    cout << "║              GAME OVER!                ║" << endl;
     cout << "╚════════════════════════════════════════╝" << endl;
-    
-    if (playerScore <= 0) {
-        cout << "💚 You got slimed! Opponent wins!" << endl;
-    } else {
-        cout << "🎉 You win! Opponent got slimed!" << endl;
-    }
-    
+
+    if (playerScore <= 0)
+        cout << "🔴 You took the final pain shot! Opponent wins!" << endl;
+    else
+        cout << "🎉 Opponent took the final pain shot! You win!" << endl;
+
     return 0;
 }
 
 // ============================================================================
-// GAME SETUP FUNCTIONS
+// GAME SETUP
 // ============================================================================
-
 void setupGame() {
-    // Clear any existing cartridges
-    superSoaker.clear(); // empty the vector
-    
-    // Load the super soaker with random cartridges
-    int waterCount = 1 + rand() % 3;  // 1-3 water cartridges
-    int slimeCount = 1 + rand() % 2;  // 1-2 slime cartridges
-    
-    loadSuperSoaker(waterCount, slimeCount);
-    shuffleSuperSoaker();
-    
-    cout << "\n🔫 Super soaker loaded!" << endl;
-    displaySuperSoaker(false);  // Show counts but not order
+    airsoftGun.clear();
+
+    int bbCount = 1 + rand() % 3;   // 1–3 safe BB shots
+    int painCount = 1 + rand() % 2; // 1–2 pain shots
+
+    loadAirsoftGun(bbCount, painCount);
+    shuffleAirsoftGun();
+
+    cout << "\n🔫 Magazine loaded!" << endl;
+    displayGun(false);
 }
 
-void loadSuperSoaker(int waterCount, int slimeCount) {
-    // Add water cartridges
-    for (int i = 0; i < waterCount; i++) {
-        superSoaker.push_back('W');
-    }
-    
-    // Add slime cartridges
-    for (int i = 0; i < slimeCount; i++) {
-        superSoaker.push_back('S');
-    }
+void loadAirsoftGun(int bbCount, int painCount) {
+    for (int i = 0; i < bbCount; i++)
+        airsoftGun.push_back('B');
+
+    for (int i = 0; i < painCount; i++)
+        airsoftGun.push_back('P');
 }
 
-void shuffleSuperSoaker() {
-    // Shuffle the cartridges so players don't know the order
-    random_shuffle(superSoaker.begin(), superSoaker.end());
+void shuffleAirsoftGun() {
+    random_shuffle(airsoftGun.begin(), airsoftGun.end());
 }
 
 // ============================================================================
-// DISPLAY FUNCTIONS
+// DISPLAY
 // ============================================================================
-
 void displayGameState() {
     cout << "\n┌─────────────────────────────────────┐" << endl;
-    cout << "│  Player: " << playerScore << " points   Opponent: " << opponentScore << " points  │" << endl;
+    cout << "│ Player: " << playerScore << " points   Opponent: " << opponentScore << " points │" << endl;
     cout << "└─────────────────────────────────────┘" << endl;
 }
 
-void displaySuperSoaker(bool showContents) {
-    int waterCount = 0;
-    int slimeCount = 0;
-    
-    // Count each type using a range-based for loop
-    for (char cartridge : superSoaker) {
-        if (cartridge == 'W') waterCount++;
-        else slimeCount++;
+void displayGun(bool showContents) {
+    int bbCount = 0, painCount = 0;
+
+    for (char c : airsoftGun) {
+        if (c == 'B') bbCount++;
+        else painCount++;
     }
-    
-    cout << "Super Soaker contents: ";
-    cout << "🔵 " << waterCount << " water, ";
-    cout << "🟢 " << slimeCount << " slime";
-    cout << " (" << superSoaker.size() << " total)" << endl;
-    
-    // For debugging/demonstration - show actual order
+
+    cout << "Magazine contents: ";
+    cout << "⚪ " << bbCount << " BB rounds, ";
+    cout << "🔴 " << painCount << " pain shots ";
+    cout << "(" << airsoftGun.size() << " total)" << endl;
+
     if (showContents) {
         cout << "Actual order: ";
-        for (char cartridge : superSoaker) {
-            cout << (cartridge == 'W' ? "🔵" : "🟢") << " ";
-        }
+        for (char c : airsoftGun)
+            cout << (c == 'B' ? "⚪ " : "🔴 ");
         cout << endl;
     }
 }
 
 // ============================================================================
-// CORE GAME MECHANICS
+// CORE MECHANICS
 // ============================================================================
-
 char fireShot() {
-    // Fire the next cartridge (remove from front of vector)
-    // This is why we use a vector - easy to remove from front!
-    
-    if (superSoaker.empty()) {
-        return 'E';  // Empty!
-    }
-    
-    // pop_back() would remove the last one
-    // removing the first one takes 2 steps as follows
-    // Get the first cartridge
-    char cartridge = superSoaker.front();
-    
-    // Remove it from the super soaker
-    superSoaker.erase(superSoaker.begin());
-    
-    return cartridge;
+    if (airsoftGun.empty())
+        return 'E';
+
+    char round = airsoftGun.front();
+    airsoftGun.erase(airsoftGun.begin());
+    return round;
 }
 
 // ============================================================================
-// TURN LOGIC
+// TURN HANDLING
 // ============================================================================
-
 void playerTurn() {
     displayGameState();
-    displaySuperSoaker(false);
-    
+    displayGun(false);
+
     cout << "\n>>> YOUR TURN <<<" << endl;
-    cout << "Fire at: [1] Yourself  [2] Opponent" << endl;
+    cout << "Shoot at: [1] Yourself  [2] Opponent" << endl;
     cout << "Choice: ";
-    
+
     int choice;
     cin >> choice;
-    
-    // Input validation
+
     while (choice != 1 && choice != 2) {
-        cout << "Invalid choice. Enter 1 or 2: ";
+        cout << "Invalid. Enter 1 or 2: ";
         cin >> choice;
     }
-    
-    cout << "\n💦 *SPLASH!* ";
+
+    cout << "\n🔫 *PEW!* ";
     char result = fireShot();
-    
-    if (result == 'W') {
-        cout << "🔵 Water! " << endl;
-        if (choice == 1) {
-            cout << "You're wet but safe! You get another turn!" << endl;
-            // Player keeps their turn (currentPlayer stays "Player")
-        } else {
-            cout << "Opponent is soaked but unharmed." << endl;
-            currentPlayer = "Opponent";  // Switch turns
+
+    if (result == 'B') {
+        cout << "⚪ Safe BB hit!" << endl;
+        if (choice == 1)
+            cout << "You're fine! You get another turn!" << endl;
+        else {
+            cout << "Opponent is unharmed." << endl;
+            currentPlayer = "Opponent";
         }
-    } else if (result == 'S') {
-        cout << "🟢 SLIME!" << endl;
+    }
+    else if (result == 'P') {
+        cout << "🔴 Pain Shot!" << endl;
         if (choice == 1) {
-            cout << "You got slimed! -1 point!" << endl;
+            cout << "Ouch! You lose 1 point!" << endl;
             playerScore--;
         } else {
-            cout << "Opponent got slimed! -1 point!" << endl;
+            cout << "Opponent takes the hit! They lose 1 point!" << endl;
             opponentScore--;
         }
-        currentPlayer = "Opponent";  // Switch turns after slime
+        currentPlayer = "Opponent";
     }
 }
 
 void opponentTurn() {
     displayGameState();
-    displaySuperSoaker(false);
-    
+    displayGun(false);
+
     cout << "\n>>> OPPONENT'S TURN <<<" << endl;
-    cout << "Press Enter to see opponent's choice...";
-    cin.ignore();
+    cout << "Press Enter to continue...";
+    cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
     cin.get();
-    
-    // Simple AI: 50/50 chance to fire at self or player
+
     int choice = 1 + rand() % 2;
-    
-    if (choice == 1) {
-        cout << "Opponent fires at themselves!" << endl;
-    } else {
-        cout << "Opponent fires at you!" << endl;
-    }
-    
-    cout << "\n💦 *SPLASH!* ";
+
+    if (choice == 1)
+        cout << "Opponent shoots themselves!" << endl;
+    else
+        cout << "Opponent fires at YOU!" << endl;
+
+    cout << "\n🔫 *PEW!* ";
     char result = fireShot();
-    
-    if (result == 'W') {
-        cout << "🔵 Water!" << endl;
-        if (choice == 1) {
-            cout << "Opponent is wet but gets another turn!" << endl;
-            // Opponent keeps their turn
-        } else {
-            cout << "You're soaked but unharmed." << endl;
-            currentPlayer = "Player";  // Switch turns
+
+    if (result == 'B') {
+        cout << "⚪ Safe BB hit!" << endl;
+        if (choice == 1)
+            cout << "Opponent is fine and takes another turn!" << endl;
+        else {
+            cout << "You're fine." << endl;
+            currentPlayer = "Player";
         }
-    } else if (result == 'S') {
-        cout << "🟢 SLIME!" << endl;
+    }
+    else if (result == 'P') {
+        cout << "🔴 Pain Shot!" << endl;
         if (choice == 1) {
-            cout << "Opponent got slimed! -1 point!" << endl;
+            cout << "Opponent takes the hit! -1 point!" << endl;
             opponentScore--;
         } else {
-            cout << "You got slimed! -1 point!" << endl;
+            cout << "You take the hit! -1 point!" << endl;
             playerScore--;
         }
-        currentPlayer = "Player";  // Switch turns after slime
+        currentPlayer = "Player";
     }
 }
 
 void checkGameOver() {
-    if (playerScore <= 0 || opponentScore <= 0) {
+    if (playerScore <= 0 || opponentScore <= 0)
         gameOver = true;
-    }
 }
