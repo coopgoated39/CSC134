@@ -16,7 +16,7 @@ using namespace std;
 // ============================================================================
 // GLOBAL VARIABLES
 // ============================================================================
-vector<char> airsoftGun; // 'B' = Plastic BB, 'P' = Pain Shot
+vector<char> airsoftGun;
 
 int playerScore = 3;
 int opponentScore = 3;
@@ -44,42 +44,71 @@ void resetGameState();
 int main() {
     srand(time(0));
 
-    cout << "╔════════════════════════════════════════╗" << endl;
-    cout << "║            AIRSOFT SHOOTOUT            ║" << endl;
-    cout << "║        Safe-Mode Shooting Game         ║" << endl;
-    cout << "╚════════════════════════════════════════╝" << endl;
-    cout << "\nRules:" << endl;
-    cout << "⚪ Plastic BB = Harmless shot (you get another turn!)" << endl;
-    cout << "🔴 Pain Shot = Stinging hit! (lose 1 point)" << endl;
-    cout << "First to 0 points loses!\n" << endl;
+    bool replay = true;
 
-    setupGame();
+    while (replay) {
+        cout << "╔════════════════════════════════════════╗" << endl;
+        cout << "║            AIRSOFT SHOOTOUT            ║" << endl;
+        cout << "║        Safe-Mode Shooting Game         ║" << endl;
+        cout << "╚════════════════════════════════════════╝" << endl;
+        cout << "\nRules:" << endl;
+        cout << "⚪ Plastic BB = Harmless shot (you get another turn!)" << endl;
+        cout << "🔴 Pain Shot = Stinging hit! (lose 1 point)" << endl;
+        cout << "First to 0 points loses!\n" << endl;
 
-    while (!gameOver) {
-        if (currentPlayer == "Player")
-            playerTurn();
-        else
-            opponentTurn();
+        setupGame();
 
-        checkGameOver();
+        while (!gameOver) {
+            if (currentPlayer == "Player")
+                playerTurn();
+            else
+                opponentTurn();
 
-        if (airsoftGun.empty() && !gameOver) {
-            cout << "\n🔄 Magazine empty! Reloading..." << endl;
-            cout << "Press Enter to continue...";
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-            cin.get();
-            setupGame();
+            checkGameOver();
+
+            if (airsoftGun.empty() && !gameOver) {
+                cout << "\n🔄 Magazine empty! Reloading..." << endl;
+                cout << "Press Enter to continue...";
+                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                cin.get();
+                setupGame();
+            }
         }
+
+        cout << "\n╔════════════════════════════════════════╗" << endl;
+        cout << "║              GAME OVER!                ║" << endl;
+        cout << "╚════════════════════════════════════════╝" << endl;
+
+        if (playerScore <= 0)
+            cout << "🔴 You took the final pain shot! Opponent wins!" << endl;
+        else
+            cout << "🎉 Opponent took the final pain shot! You win!" << endl;
+
+        // ───────────────────────────────
+        // REPLAY MENU
+        // ───────────────────────────────
+        int choice;
+        cout << "\nWould you like to:" << endl;
+        cout << "1. Play Again" << endl;
+        cout << "2. Quit" << endl;
+        cout << "Choice: ";
+        cin >> choice;
+
+        while (choice != 1 && choice != 2) {
+            cout << "Invalid choice. Enter 1 or 2: ";
+            cin >> choice;
+        }
+
+        if (choice == 1) {
+            resetGameState();
+            cout << "\n🔁 Starting a new game!\n" << endl;
+        } else {
+            replay = false;
+            cout << "\n👋 Thanks for playing Airsoft Shootout!" << endl;
+        }
+
+        cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear input buffer
     }
-
-    cout << "\n╔════════════════════════════════════════╗" << endl;
-    cout << "║              GAME OVER!                ║" << endl;
-    cout << "╚════════════════════════════════════════╝" << endl;
-
-    if (playerScore <= 0)
-        cout << "🔴 You took the final pain shot! Opponent wins!" << endl;
-    else
-        cout << "🎉 Opponent took the final pain shot! You win!" << endl;
 
     return 0;
 }
@@ -90,7 +119,7 @@ int main() {
 void setupGame() {
     airsoftGun.clear();
 
-    int bbCount = 1 + rand() % 3;   // 1–3 safe BB shots
+    int bbCount = 1 + rand() % 3;   // 1–3 BB shots
     int painCount = 1 + rand() % 2; // 1–2 pain shots
 
     loadAirsoftGun(bbCount, painCount);
@@ -143,7 +172,7 @@ void displayGun(bool showContents) {
 }
 
 // ============================================================================
-// CORE MECHANICS
+// GAME MECHANICS
 // ============================================================================
 char fireShot() {
     if (airsoftGun.empty())
@@ -244,6 +273,9 @@ void checkGameOver() {
         gameOver = true;
 }
 
+// ============================================================================
+// RESET FOR NEW GAME
+// ============================================================================
 void resetGameState() {
     playerScore = 3;
     opponentScore = 3;
