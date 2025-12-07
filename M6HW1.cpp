@@ -1,7 +1,8 @@
 /* CSC 134
-M8Final
+M6HW1
 Curtis Cooper
 1 DEC 2025
+Avengers Battle Game
 */
 
 #include <iostream>
@@ -110,4 +111,3 @@ int main() {
 
     cout << "\nThanks for playing the Avengers Battle!\n";
     return 0;
-}
