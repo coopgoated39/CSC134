@@ -7,6 +7,8 @@ Curtis Cooper
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib>  // For rand()
+#include <ctime>    // For time()
 using namespace std;
 
 // Directions
@@ -17,6 +19,8 @@ const string DIRECTION_NAMES[NUM_DIRECTIONS] = { "north", "east", "south", "west
 enum Room { HQ = 0, NEW_YORK, WAKANDA, VILLAIN_LAIR, NUM_ROOMS };
 
 int main() {
+    srand(time(0)); // Seed random
+
     // Room names
     string roomNames[NUM_ROOMS] = {
         "Avengers HQ",
@@ -41,6 +45,9 @@ int main() {
         "Infinity Stone" // Villain's Lair
     };
 
+    // Villain HP in each room (-1 = no villain)
+    int villainHP[NUM_ROOMS] = { -1, 30, 40, 50 };
+
     // Room connections
     int connections[NUM_ROOMS][NUM_DIRECTIONS] = {
         { NEW_YORK, WAKANDA, -1, -1 },  // HQ
@@ -51,6 +58,7 @@ int main() {
 
     // Game state
     int currentRoom = HQ;
+    int playerHP = 100;
     vector<string> inventory;
     bool running = true;
 
@@ -69,6 +77,49 @@ int main() {
             if (connections[currentRoom][d] != -1)
                 cout << DIRECTION_NAMES[d] << " ";
         cout << endl;
+
+        // Villain encounter
+        if (villainHP[currentRoom] > 0) {
+            cout << "A villain appears with " << villainHP[currentRoom] << " HP!\n";
+            while (villainHP[currentRoom] > 0 && playerHP > 0) {
+                cout << "\nYour HP: " << playerHP << " | Villain HP: " << villainHP[currentRoom] << endl;
+                cout << "Do you want to 'attack' or 'run'? ";
+                string action;
+                cin >> action;
+
+                if (action == "attack") {
+                    int playerDamage = rand() % 20 + 5;   // 5-24 damage
+                    int villainDamage = rand() % 15 + 5; // 5-19 damage
+                    villainHP[currentRoom] -= playerDamage;
+                    cout << "You deal " << playerDamage << " damage to the villain!\n";
+                    if (villainHP[currentRoom] > 0) {
+                        playerHP -= villainDamage;
+                        cout << "The villain hits back for " << villainDamage << " damage!\n";
+                    } else {
+                        cout << "You defeated the villain!\n";
+                    }
+                }
+                else if (action == "run") {
+                    cout << "You retreat to the previous room.\n";
+                    // Simple retreat: go south if possible, else west, else north, else east
+                    if (connections[currentRoom][SOUTH] != -1) currentRoom = connections[currentRoom][SOUTH];
+                    else if (connections[currentRoom][WEST] != -1) currentRoom = connections[currentRoom][WEST];
+                    else if (connections[currentRoom][NORTH] != -1) currentRoom = connections[currentRoom][NORTH];
+                    else if (connections[currentRoom][EAST] != -1) currentRoom = connections[currentRoom][EAST];
+                    break;
+                }
+                else {
+                    cout << "Unknown action.\n";
+                }
+
+                if (playerHP <= 0) {
+                    cout << "You were defeated! Game over.\n";
+                    running = false;
+                    break;
+                }
+            }
+            if (!running) break;
+        }
 
         // Player command
         string cmd;
