@@ -2,7 +2,6 @@
 M6LAB2
 Curtis Cooper
 1 DEC 2025
-Bronze
 */
 
 //interactions are look, take, or quit anything else is an unknown command//
