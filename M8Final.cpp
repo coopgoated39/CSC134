@@ -7,8 +7,9 @@ Curtis Cooper
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cstdlib>  // For rand()
-#include <ctime>    // For time()
+#include <cstdlib>   // For rand()
+#include <ctime>     // For time()
+#include <algorithm> // For std::find
 using namespace std;
 
 // Directions
@@ -39,14 +40,22 @@ int main() {
 
     // Objects in rooms
     string roomObjects[NUM_ROOMS] = {
-        "Mjolnir",      // HQ
-        "Shield",       // New York
+        "Mjolnir",        // HQ
+        "Shield",         // New York
         "Vibranium Suit", // Wakanda
-        "Infinity Stone" // Villain's Lair
+        "Infinity Stone"  // Villain's Lair
+    };
+
+    // Health items in rooms (optional)
+    string healthItems[NUM_ROOMS] = {
+        "",               // HQ
+        "Medkit",         // New York
+        "Healing Potion", // Wakanda
+        ""                // Villain's Lair
     };
 
     // Villain HP in each room (-1 = no villain)
-    int villainHP[NUM_ROOMS] = { -1, 30, 40, 50 };
+    int villainHP[NUM_ROOMS] = { -1, 30, 40, 100 }; // Villain's Lair = final boss
 
     // Room connections
     int connections[NUM_ROOMS][NUM_DIRECTIONS] = {
@@ -71,6 +80,11 @@ int main() {
         // Show objects
         cout << "You see a " << roomObjects[currentRoom] << " here.\n";
 
+        // Show health items
+        if (!healthItems[currentRoom].empty()) {
+            cout << "There is a " << healthItems[currentRoom] << " here.\n";
+        }
+
         // Exits
         cout << "Exits: ";
         for (int d = 0; d < NUM_DIRECTIONS; d++)
@@ -83,13 +97,16 @@ int main() {
             cout << "A villain appears with " << villainHP[currentRoom] << " HP!\n";
             while (villainHP[currentRoom] > 0 && playerHP > 0) {
                 cout << "\nYour HP: " << playerHP << " | Villain HP: " << villainHP[currentRoom] << endl;
-                cout << "Do you want to 'attack' or 'run'? ";
+                cout << "Do you want to 'attack', 'run', or 'use' a health item? ";
                 string action;
                 cin >> action;
 
                 if (action == "attack") {
                     int playerDamage = rand() % 20 + 5; // Base 5-24
                     int villainDamage = rand() % 15 + 5; // Base 5-19
+
+                    // Final boss stronger attack
+                    if (currentRoom == VILLAIN_LAIR) villainDamage += 10;
 
                     // Apply item effects for attack
                     if (find(inventory.begin(), inventory.end(), "Mjolnir") != inventory.end()) playerDamage += 10;
@@ -118,6 +135,17 @@ int main() {
                     else if (connections[currentRoom][EAST] != -1) currentRoom = connections[currentRoom][EAST];
                     break;
                 }
+                else if (action == "use") {
+                    // Check for health item
+                    if (!healthItems[currentRoom].empty()) {
+                        int healAmount = rand() % 30 + 20; // Heal 20-49 HP
+                        playerHP += healAmount;
+                        cout << "You use the " << healthItems[currentRoom] << " and recover " << healAmount << " HP!\n";
+                        healthItems[currentRoom] = ""; // Remove item after use
+                    } else {
+                        cout << "No health items here!\n";
+                    }
+                }
                 else {
                     cout << "Unknown action.\n";
                 }
@@ -129,6 +157,16 @@ int main() {
                 }
             }
             if (!running) break;
+        }
+
+        // Check win condition
+        bool allVillainsDefeated = true;
+        for (int i = 0; i < NUM_ROOMS; i++)
+            if (villainHP[i] > 0) allVillainsDefeated = false;
+
+        if (allVillainsDefeated) {
+            cout << "\nCongratulations! You defeated all the villains, including the final boss, and saved the world!\n";
+            break;
         }
 
         // Player command
