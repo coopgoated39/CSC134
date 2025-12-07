@@ -1,5 +1,5 @@
 /* CSC 134
-M6HW1
+M6HW1 - Bronze
 Curtis Cooper
 1 DEC 2025
 Avengers Battle Game
