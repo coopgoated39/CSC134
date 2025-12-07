@@ -88,10 +88,21 @@ int main() {
                 cin >> action;
 
                 if (action == "attack") {
-                    int playerDamage = rand() % 20 + 5;   // 5-24 damage
-                    int villainDamage = rand() % 15 + 5; // 5-19 damage
+                    int playerDamage = rand() % 20 + 5; // Base 5-24
+                    int villainDamage = rand() % 15 + 5; // Base 5-19
+
+                    // Apply item effects for attack
+                    if (find(inventory.begin(), inventory.end(), "Mjolnir") != inventory.end()) playerDamage += 10;
+                    if (find(inventory.begin(), inventory.end(), "Infinity Stone") != inventory.end()) playerDamage += 20;
+
+                    // Apply item effects for defense
+                    if (find(inventory.begin(), inventory.end(), "Shield") != inventory.end()) villainDamage -= 5;
+                    if (find(inventory.begin(), inventory.end(), "Vibranium Suit") != inventory.end()) villainDamage -= 10;
+                    if (villainDamage < 0) villainDamage = 0;
+
                     villainHP[currentRoom] -= playerDamage;
                     cout << "You deal " << playerDamage << " damage to the villain!\n";
+
                     if (villainHP[currentRoom] > 0) {
                         playerHP -= villainDamage;
                         cout << "The villain hits back for " << villainDamage << " damage!\n";
@@ -101,7 +112,6 @@ int main() {
                 }
                 else if (action == "run") {
                     cout << "You retreat to the previous room.\n";
-                    // Simple retreat: go south if possible, else west, else north, else east
                     if (connections[currentRoom][SOUTH] != -1) currentRoom = connections[currentRoom][SOUTH];
                     else if (connections[currentRoom][WEST] != -1) currentRoom = connections[currentRoom][WEST];
                     else if (connections[currentRoom][NORTH] != -1) currentRoom = connections[currentRoom][NORTH];
