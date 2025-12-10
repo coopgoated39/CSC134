@@ -46,7 +46,7 @@ int main() {
         "Infinity Stone"  // Villain's Lair
     };
 
-    // Health items in rooms (optional)
+    // Health items in rooms
     string healthItems[NUM_ROOMS] = {
         "",               // HQ
         "Medkit",         // New York
@@ -77,10 +77,12 @@ int main() {
         cout << "\nYou are in " << roomNames[currentRoom] << endl;
         cout << roomDescriptions[currentRoom] << endl;
 
-        // Show objects
-        cout << "You see a " << roomObjects[currentRoom] << " here.\n";
+        // Show objects only if they still exist
+        if (!roomObjects[currentRoom].empty()) {
+            cout << "You see a " << roomObjects[currentRoom] << " here.\n";
+        }
 
-        // Show health items
+        // Show health items only if still available
         if (!healthItems[currentRoom].empty()) {
             cout << "There is a " << healthItems[currentRoom] << " here.\n";
         }
@@ -105,14 +107,14 @@ int main() {
                     int playerDamage = rand() % 20 + 5; // Base 5-24
                     int villainDamage = rand() % 15 + 5; // Base 5-19
 
-                    // Final boss stronger attack
+                    // Final boss extra damage
                     if (currentRoom == VILLAIN_LAIR) villainDamage += 10;
 
-                    // Apply item effects for attack
+                    // Item bonuses for attack
                     if (find(inventory.begin(), inventory.end(), "Mjolnir") != inventory.end()) playerDamage += 10;
                     if (find(inventory.begin(), inventory.end(), "Infinity Stone") != inventory.end()) playerDamage += 20;
 
-                    // Apply item effects for defense
+                    // Item bonuses for defense
                     if (find(inventory.begin(), inventory.end(), "Shield") != inventory.end()) villainDamage -= 5;
                     if (find(inventory.begin(), inventory.end(), "Vibranium Suit") != inventory.end()) villainDamage -= 10;
                     if (villainDamage < 0) villainDamage = 0;
@@ -136,13 +138,13 @@ int main() {
                     break;
                 }
                 else if (action == "use") {
-                    // Check for health item
                     if (!healthItems[currentRoom].empty()) {
-                        int healAmount = rand() % 30 + 20; // Heal 20-49 HP
+                        int healAmount = rand() % 30 + 20;
                         playerHP += healAmount;
                         cout << "You use the " << healthItems[currentRoom] << " and recover " << healAmount << " HP!\n";
-                        healthItems[currentRoom] = ""; // Remove item after use
-                    } else {
+                        healthItems[currentRoom] = ""; // Remove after use
+                    }
+                    else {
                         cout << "No health items here!\n";
                     }
                 }
@@ -159,13 +161,13 @@ int main() {
             if (!running) break;
         }
 
-        // Check win condition
+        // Win check
         bool allVillainsDefeated = true;
         for (int i = 0; i < NUM_ROOMS; i++)
             if (villainHP[i] > 0) allVillainsDefeated = false;
 
         if (allVillainsDefeated) {
-            cout << "\nCongratulations! You defeated all the villains, including the final boss, and saved the world!\n";
+            cout << "\nCongratulations! You defeated all the villains and saved the world!\n";
             break;
         }
 
@@ -193,15 +195,36 @@ int main() {
 
         // Interactions
         else if (cmd == "look") {
-            cout << "You inspect the " << roomObjects[currentRoom] << ".\n";
+            if (!roomObjects[currentRoom].empty())
+                cout << "You inspect the " << roomObjects[currentRoom] << ".\n";
+            else if (!healthItems[currentRoom].empty())
+                cout << "You inspect the " << healthItems[currentRoom] << ".\n";
+            else
+                cout << "There is nothing of interest here.\n";
         }
+
         else if (cmd == "take") {
-            cout << "You take the " << roomObjects[currentRoom] << ".\n";
-            inventory.push_back(roomObjects[currentRoom]);
+            // Try to take object first
+            if (!roomObjects[currentRoom].empty()) {
+                cout << "You take the " << roomObjects[currentRoom] << ".\n";
+                inventory.push_back(roomObjects[currentRoom]);
+                roomObjects[currentRoom].clear();  // Remove item
+            }
+            // Try to take health item
+            else if (!healthItems[currentRoom].empty()) {
+                cout << "You take the " << healthItems[currentRoom] << ".\n";
+                inventory.push_back(healthItems[currentRoom]);
+                healthItems[currentRoom].clear();
+            }
+            else {
+                cout << "There is nothing here to take.\n";
+            }
         }
+
         else if (cmd == "quit" || cmd == "q") {
             running = false;
         }
+
         else {
             cout << "Unknown command.\n";
         }
